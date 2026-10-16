@@ -30,8 +30,16 @@
             text-align: center;
             color: var(--title-color);
             font-weight: normal;
-            margin-bottom: 3rem;
-            letter-spacing: 4px;
+            margin-bottom: 2rem;
+            letter-spacing: 7px;
+        }
+        h3 {
+            text-align: center;
+            color: var(--title-color);
+            font-weight: normal;
+            margin-bottom: 0rem;
+            letter-spacing: 2px;
+            line-height: 1;
         }
         details {
             border-bottom: 1px solid var(--border-color);
@@ -60,6 +68,20 @@
             font-size: 1.05rem;
             color: #ffffffff;
         }
+        .content + .content {
+            margin-top: 0;
+            padding-top: 0;
+            border-radius: 0;
+        }
+        details > div.content:first-of-type {
+            border-radius: 6px 6px 0 0;
+        }
+        details > div.content:last-of-type {
+            border-radius: 0 0 6px 6px;
+        }
+        details > div.content:only-of-type {
+            border-radius: 6px;
+        }
 		::selection {
     background-color: #f0eaffff; 
     color: #121212;        
@@ -74,79 +96,143 @@
     <div class="container">
         <h1>後華園</h1>
 
+        <h3>且往观乎！洵訏且乐。</h3>
+        <h3>且往观乎！用竢后华。</h3>
+
         <details>
             <summary>王孙</summary>
-            <div class="content">蔽芾咸阳道，飘葱过暮春。无心拨秀颖，悠尔见王孙。王孙恬然坐，髻珠结长发。苍琅九霞裙，霜雪缣帛袜。帛袜承纤腿，衷衣勒玉沟。春心方馺遝，扮作小猫羞。小猫质且妩，摇尾说清铃。勃勃忱气暖，澒若在仙庭。仙庭神人列，胜饯襄轩恢。凤音称郑卫，新酒盈醁醅。醁醅醉狸儿，力微尚啴啴。琼液侵双绺，雪胸掩半襕。襕兜艳如桃，文织红粉色。玉势空摩挲，罗襻褪体侧。体侧雪肌湿，连纽锁肤痕。热欲积惆怅，兀自引势扪。扪索从幽赜，偏睐美人来。微微翟褕裼，琰琰云裾开。开裾欣出试，屃奰直如楱。何事水晶毬？孰作铜豌豆？豌豆磨相合，五内顶不守。青丝两樛结，狂獝各呼嗾。呼由入畅时，鱼水幻海螭。坎离方切济，暴激如醒迟。迟迟平朔夜，王孙瞠恻促。凉风侵疏牖，诘我更何欲。股弁于藜床，自讟不荐淑。器尽恶所遗，残身不能沐。抬望星河净，仿佛洗天溽。鸡声空自起，尘梦逐相续。</div>
+            <div class="content">蔽芾咸阳道，飘葱过暮春。</div>
+            <div class="content">无心拨秀颖，悠尔见王孙。</div>
+            <div class="content">王孙恬然坐，髻珠结长发。</div>
+            <div class="content">苍琅九霞裙，霜雪缣帛袜。</div>
+            <div class="content">帛袜承纤腿，衷衣勒玉沟。</div>
+            <div class="content">春心方馺遝，扮作小猫羞。</div>
+            <div class="content">小猫质且妩，摇尾说清铃。</div>
+            <div class="content">勃勃忱气暖，澒若在仙庭。</div>
+            <div class="content">仙庭神人列，胜饯襄轩恢。</div>
+            <div class="content">凤音称郑卫，新酒盈醁醅。</div>
+            <div class="content">醁醅醉狸儿，力微尚啴啴。</div>
+            <div class="content">琼液侵双绺，雪胸掩半襕。</div>
+            <div class="content">襕兜艳如桃，文织红粉色。</div>
+            <div class="content">玉势空摩挲，罗襻褪体侧。</div>
+            <div class="content">体侧雪肌湿，连纽锁肤痕。</div>
+            <div class="content">热欲积惆怅，兀自引势扪。</div>
+            <div class="content">扪索从幽赜，偏睐美人来。</div>
+            <div class="content">微微翟褕裼，琰琰云裾开。</div>
+            <div class="content">开裾欣出试，屃奰直如楱。</div>
+            <div class="content">何事水晶毬？孰作铜豌豆？</div>
+            <div class="content">豌豆磨相合，五内顶不守。</div>
+            <div class="content">青丝两樛结，狂獝各呼嗾。</div>
+            <div class="content">呼由入畅时，鱼水幻海螭。</div>
+            <div class="content">坎离方切济，暴激如醒迟。</div>
+            <div class="content">迟迟平朔夜，王孙瞠恻促。</div>
+            <div class="content">凉风侵疏牖，诘我更何欲。</div>
+            <div class="content">股弁于藜床，自讟不荐淑。</div>
+            <div class="content">器尽恶所遗，残身不能沐。</div>
+            <div class="content">抬望星河净，仿佛洗天溽。</div>
+            <div class="content">鸡声空自起，尘梦逐相续。</div>
         </details>
 
         <details>
             <summary>苏幕遮·谒公乘得旧将曼刻石怀古</summary>
-            <div class="content">覆茵丘，清寂地。琢琢磨磨，石篆留时戏。并盼后来贤者至。寄梦凭陵，中野多青翠。二千秋，惊倏遂。旧将安归？往事成星彗。骨肉函稠铜水腻。对籀无言，百代曾垂泪。</div>
+            <div class="content">覆茵丘，清寂地。琢琢磨磨，石篆留时戏。并盼后来贤者至。寄梦凭陵，中野多青翠。</div>
+            <div class="content">二千秋，惊倏遂。旧将安归？往事成星彗。骨肉函稠铜水腻。对籀无言，百代曾垂泪。</div>
         </details>
 
         <details>
             <summary>高考后作</summary>
-            <div class="content">未必寒窗未必休，前般滋味上山楼。朝台云霭弥唐海，北地烟泓远福州。才谫不曾明五典，式微何力度三秋！星星摇落萌黎下，耿耿天河欲引舟。</div>
+            <div class="content">未必寒窗未必休，前般滋味上山楼。</div>
+            <div class="content">朝台云霭弥唐海，北地烟泓远福州。</div>
+            <div class="content">才谫不曾明五典，式微何力度三秋！</div>
+            <div class="content">星星摇落萌黎下，耿耿天河欲引舟。</div>
         </details>
 
         <details>
             <summary>酬（网路通前昧）</summary>
-            <div class="content">网路通前昧，飞书结绮年。同筹宗悫志，远蔚尽暄妍！</div>
+            <div class="content">网路通前昧，飞书结绮年。</div>
+            <div class="content">同筹宗悫志，远蔚尽暄妍！</div>
         </details>
 
         <details>
             <summary>酬（陆海潘江供此身）</summary>
-            <div class="content">陆海潘江供此身，瓯山闽水挹精纯。诗情最喜高歌至，一旦逢春自有人。</div>
+            <div class="content">陆海潘江供此身，瓯山闽水挹精纯。</div>
+            <div class="content">诗情最喜高歌至，一旦逢春自有人。</div>
         </details>
 
         <details>
             <summary>酬（卷土重来未可知）</summary>
-            <div class="content">卷土重来未可知，城头变幻大王旗。六朝门户卒何事？故国人民有所思！</div>
+            <div class="content">卷土重来未可知，城头变幻大王旗。</div>
+            <div class="content">六朝门户卒何事？故国人民有所思！</div>
         </details>
 
         <details>
             <summary>酬（冰团皦皦映高甍）</summary>
-            <div class="content">冰团皦皦映高甍，挺质胸中意气萌。犹是蝉鸣耸醉梦，惊鸿出照水盈盈。</div>
+            <div class="content">冰团皦皦映高甍，挺质胸中意气萌。</div>
+            <div class="content">犹是蝉鸣耸醉梦，惊鸿出照水盈盈。</div>
         </details>
 
         <details>
             <summary>酬（季春雨浸欣希阔）</summary>
-            <div class="content">季春雨浸欣希阔，迩日晴归乐郁芗。麰麦含膏舒秀颖，黍禾坼土企新秧。</div>
+            <div class="content">季春雨浸欣希阔，迩日晴归乐郁芗。</div>
+            <div class="content">麰麦含膏舒秀颖，黍禾坼土企新秧。</div>
         </details>
 
         <details>
             <summary>惊闻同学早逝虽未谋面犹多感伤曾几垂泪</summary>
-            <div class="content">赤焰无情凶有玆，韶华曼茂竟亡时。平生素昧犹多泪，满座长喑忍远思。万卷汲营悲作土，三年热烙痛成痍。诸君后路齐酬愤，为我同窗祭桂枝。</div>
+            <div class="content">赤焰无情凶有玆，韶华曼茂竟亡时。</div>
+            <div class="content">平生素昧犹多泪，满座长喑忍远思。</div>
+            <div class="content">万卷汲营悲作土，三年热烙痛成痍。</div>
+            <div class="content">诸君后路齐酬愤，为我同窗祭桂枝。</div>
         </details>
 
         <details>
             <summary>豫州其一</summary>
-            <div class="content">千里青黄绕涧湾，城池点缀麦畿间。䚎然望断蛤灰淡，疑是低云不是山。</div>
+            <div class="content">千里青黄绕涧湾，城池点缀麦畿间。</div>
+            <div class="content">䚎然望断蛤灰淡，疑是低云不是山。</div>
         </details>
 
         <details>
             <summary>豫州其二</summary>
-            <div class="content">南天别过闽山嶞，挺挏来程遥日簸。耸矖高丘绝阔畴，凭云直到潼关左！</div>
+            <div class="content">南天别过闽山嶞，挺挏来程遥日簸。</div>
+            <div class="content">耸矖高丘绝阔畴，凭云直到潼关左！</div>
         </details>
 
         <details>
-            <summary>意义不明速成险韵实验</summary>
-            <div class="content">兢兢人未歇，曶曶凌黑䬂。冷氣驅還家，寂意催思暍。層衾體上披，冷靄窗外昒。夜半冱漸嚴，匆服連袴襪。</div>
+            <summary>意义不明的险韵实验</summary>
+            <div class="content">兢兢人未歇，曶曶凌黑䬂。</div>
+            <div class="content">冷气驱还家，寂意催思暍。</div>
+            <div class="content">层衾体上披，冷霭窗外昒。</div>
+            <div class="content">夜半冱渐严，匆服连裤袜。</div>
         </details>
 
         <details>
             <summary>陇中秋</summary>
-            <div class="content">沟丛新鬼唱旧谣，月晴照落土中皂。宅兹卧听雨声轻，抖擞将餐秋杲杲。后山积露压边草，朔气堆来拜西皓。举目多拔新疆杨，流连未遇楚国栲。一带寒鸦愆丘木，徘徊碛月寻玛瑙。恍若塞上行不回，衰兰送客咸阳道。</div>
+            <div class="content">沟丛新鬼唱旧谣，月晴照落土中皂。</div>
+            <div class="content">宅兹卧听雨声轻，抖擞将餐秋杲杲。</div>
+            <div class="content">后山积露压边草，朔气堆来拜西皓。</div>
+            <div class="content">举目多拔新疆杨，流连未遇楚国栲。</div>
+            <div class="content">一带寒鸦愆丘木，徘徊碛月寻玛瑙。</div>
+            <div class="content">恍若塞上行不回，衰兰送客咸阳道。</div>
         </details>
 
         <details>
             <summary>晚习</summary>
-            <div class="content">远思璇玑不澈澄，黯晦讵为星星灯。匆匆行人流长巷，呼呼黠鬼楼门撞。山头赫墨山君矢，残烛光下残蛾死。举目九庹有寒光，月冷伊人开牅望。似是新灵殊未近，三更凌夜恸哭声。伤看如愁细雨轻，绝希粉黛老丘晴。……（中段亡佚）……半呓交心忘涉时，卒去来踪不我知。青眼诚加问归地，南天三万六千里。我有迷魂招不得，叵许慕膻为蚂蚁，空羡秦妃仙山士。</div>
+            <div class="content">远思璇玑不澈澄，黯晦讵为星星灯。</div>
+            <div class="content">匆匆行人流长巷，呼呼黠鬼楼门撞。</div>
+            <div class="content">山头赫墨山君矢，残烛光下残蛾死。</div>
+            <div class="content">举目九庹有寒光，月冷伊人开牅望。</div>
+            <div class="content">似是新灵殊未近，三更凌夜恸哭声。</div>
+            <div class="content">伤看如愁细雨轻，绝希粉黛老丘晴。</div>
+            <div class="content">……（中段亡佚）……</div>
+            <div class="content">半呓交心忘涉时，卒去来踪不我知。</div>
+            <div class="content">青眼诚加问归地，南天三万六千里。</div>
+            <div class="content">我有迷魂招不得，叵许慕膻为蚂蚁，空羡秦妃仙山士。</div>
         </details>
 
         <details>
             <summary>浣溪沙·病中喝不到奶茶</summary>
-            <div class="content">记得东街暄艳天，乳轻茶沁抹浓芊，葡萄柚子小珠圆。头痛托依唯抱枕，胃伤扞格有清涎。药垂腮尽独难眠。</div>
+            <div class="content">记得东街暄艳天，乳轻茶沁抹浓芊，葡萄柚子小珠圆。</div>
+            <div class="content">头痛托依唯抱枕，胃伤扞格有清涎。药垂腮尽独难眠。</div>
         </details>
 
         <details>
@@ -156,121 +242,160 @@
 
         <details>
             <summary>乙巳自寿</summary>
-            <div class="content">踥蹀幽茫径，穷通我不知。愆悬随赤蚪，为有梦来时。</div>
+            <div class="content">踥蹀幽茫径，穷通我不知。</div>
+            <div class="content">愆悬随赤蚪，为有梦来时。</div>
         </details>
 
         <details>
             <summary>澎湖海战</summary>
-            <div class="content">阴云长隙箭摩霄，锦绣神乡海县遥。烈士同酬诛建虏，征人背水死中朝。衣冠贯古传千代，正朔须期覆八妖。赤帜莫将贼囮比，汉家要学汉嫖姚。</div>
+            <div class="content">阴云长隙箭摩霄，锦绣神乡海内遥。</div>
+            <div class="content">烈士同酬诛建虏，征人背水死中朝。</div>
+            <div class="content">衣冠贯古承千代，正朔须期覆八妖。</div>
+            <div class="content">赤帜何辜贼囮比，汉家要学汉嫖姚。</div>
         </details>
 
         <details>
             <summary>无所隐</summary>
-            <div class="content">文章爰古恨秋风，造化清尘带砺同。三击革鼗惊落叶，百年微命哭征蓬。才闻戴胜催桑苎，耸见利镰收槁葱。振万谁成邾郐业，岁时河汉在趋东。</div>
+            <div class="content">文章爰古恨秋风，造化清尘带砺同。</div>
+            <div class="content">三击革鼗惊落叶，百年微命哭征蓬。</div>
+            <div class="content">才闻戴胜催桑苎，耸见利镰收槁葱。</div>
+            <div class="content">振万谁成邾郐业，岁时河汉在趋东。</div>
         </details>
 
         <details>
             <summary>少年游·为校歌作二首</summary>
-            <div class="content">雄江一道雪中开，湖镜鉴皚皚。葦苕摧折，飂飂凌邁，吾眾莫徘徊。冰箸先嚮胷中断，意氣徹天埃。九域東風，上山下海，春雷滿長峐。
-			河山帶礪路侵苔，思念叵黃槐。致知窮理，文攻武衛，旗捲角聲來。青春受謝何澄麗，昭昭我黌偲。養於器識，讜於革命，明日作殊裁。</div>
+            <div class="content">雄江一道雪中开，湖镜鉴皑皑。苇苕摧折，飂飂凌迈，吾众莫徘徊。</div>
+            <div class="content">冰箸先向胸中断，意气彻天埃。九域东风，上山下海，春雷满长峐。</div>
+            <div class="content"> </div>
+            <div class="content">河山带砺路侵苔，思念叵黄槐。致知穷理，文攻武卫，旗捲角声来。</div>
+            <div class="content">青春受谢何澄丽，昭昭我黉偲。养于器识，谠于革命，明日作殊裁。</div>
         </details>
 
         <details>
             <summary>浪淘沙令·君臣问答</summary>
-            <div class="content">代序大王旗。朱袖委迤，修齐空句付寒儿。锦陛成灰能复起，不损威仪。黎庶乱时祺。批詈周期，共工犹可断天维。门户多年、擒硕鼠，必曝君尸。</div>
+            <div class="content">代序大王旗。朱袖委迤，修齐空句付寒儿。锦陛成灰能复起，不损威仪。</div>
+            <div class="content">黎庶乱时祺。批詈周期，共工犹可断天维。门户多年、擒硕鼠，必曝君尸。</div>
         </details>
 
         <details>
-            <summary>徂怀</summary>
-            <div class="content">恶壑误华萌，摐泥岂类琤。无从帏下姣，忍泣椁中卿。踯躅迟鹏举，迍邅待凤鸣。曷追秋云烈，仗剑割阴睛。</div>
+            <summary>无题</summary>
+            <div class="content">恶壑误华萌，摐泥岂类琤。</div>
+            <div class="content">无从帏下姣，忍泣椁中卿。</div>
+            <div class="content">踯躅迟鹏举，迍邅待凤鸣。</div>
+            <div class="content">曷追秋云烈，仗剑割阴睛。</div>
         </details>
 
         <details>
             <summary>水调歌头·杭州</summary>
-            <div class="content">华灯上城路，翻出碧波沿。烁倏黯冉，游人三两对秋莲。一段石桥带水，默驻亭湾骑射，几处觅挥弦。本是寻常曲，何事独涟涟。有啸歌，及欢会，或骋妍。湖清市暖，望断无处不青年。熙皞余杭禀气，待若之江春晓，东海作风筵！反顾雍州野，谁戍玉门边。</div>
+            <div class="content">华灯上城路，翻出碧波沿。烁倏黯冉，游人三两对秋莲。一段石桥带水，默驻亭湾骑射，几处觅挥弦。本是寻常曲，何事独涟涟。</div>
+            <div class="content">有啸歌，及欢会，或骋妍。湖清市暖，望断无处不青年。熙皞余杭禀气，待若之江春晓，东海作风筵！反顾雍州野。谁戍玉门边。</div>
         </details>
 
         <details>
             <summary>中元</summary>
-            <div class="content">西北有高楼，可以观当空月。空月凌轻云，白光照幽樾；草上明人影，山前托嶢屼。三更而食始，冉冉月华东南缺。又见侵绛芒，地母间扶桑。折来犹莽莽，从我晨昏襄；四万里人同引首，红铜新色出未央。未央夜生䬂，伴月忽翔徉。君莫谓祓禳，胜象古不常。观景偕称绝，伥鬼独凄凉。亭立井鬼地，何有羡苏杭？君莫谓祓禳！拱卫铜壶旰，稀星陈河汉。食甚聿将竟，天宫留彼岸。惟可铭诸心，摄纪不足看。天人共佳期，一道都灿烂。</div>
+            <div class="content">西北有高楼，可以观当空月。</div>
+            <div class="content">空月凌轻云，白光照幽樾；</div>
+            <div class="content">草上明人影，山前托嶢屼。</div>
+            <div class="content">三更而食始，冉冉月华东南缺。</div>
+            <div class="content">又见侵绛芒，地母间扶桑。</div>
+            <div class="content">折来犹莽莽，从我晨昏襄；</div>
+            <div class="content">四万里人同引首，红铜新色出未央。</div>
+            <div class="content">未央夜生䬂，伴月忽翔徉。</div>
+            <div class="content">君莫谓祓禳，胜象古不常。</div>
+            <div class="content">观景偕称绝，伥鬼独凄凉。</div>
+            <div class="content">亭立井鬼地，何有羡苏杭？</div>
+            <div class="content">君莫谓祓禳！</div>
+            <div class="content">拱卫铜壶旰，稀星陈河汉。</div>
+            <div class="content">食甚聿将竟，天宫留彼岸。</div>
+            <div class="content">惟可铭诸心，摄纪不足看。</div>
+            <div class="content">天人共佳期，一道都灿烂。</div>
         </details>
 
         <details>
             <summary>兰州</summary>
-            <div class="content">西渐弱水犹函夏，卷鞴三危教走马。整娖衣裙带揭车，登栖陉岘留乡社。祁连窗雪还疑鲛，龛谷凉沙已及踝。化匠关山裁作纫，十年独对兰州野！</div>
+            <div class="content">西渐弱水犹函夏，卷鞴三危教走马。</div>
+            <div class="content">整娖衣裙带揭车，登栖陉岘留乡社。</div>
+            <div class="content">祁连窗雪还疑鲛，龛谷凉沙已及踝。</div>
+            <div class="content">化匠关山裁作纫，十年独对兰州野！</div>
         </details>
 
         <details>
             <summary>敬祝毛泽东同志诞辰一百三十一周年，步韵《七律•冬云》</summary>
-            <div class="content">罄宇微虫匝地飞，东方雾著九苍稀。冲天毒草香花斗，入海浇风暴雨吹。月照清辉曾伏虎，身装飒爽要批罴。而今再上黄洋界，万怪鸡声儆少奇。</div>
+            <div class="content">罄宇微虫匝地飞，东方雾著九苍稀。</div>
+            <div class="content">冲天毒草香花斗，入海浇风暴雨吹。</div>
+            <div class="content">月照清辉曾伏虎，身装飒爽要批罴。</div>
+            <div class="content">而今再上黄洋界，万怪鸡声儆少奇。</div>
         </details>
 
         <details>
             <summary>敬祝毛泽东同志诞辰一百三十二周年，步韵《七律•冬云》</summary>
-            <div class="content">夜雪赓扬草上飞，神乡梦里耸依稀。堪期汗册厥中秉，欲溯江天郁滃吹。短树终须伏豪雨，田闾长不仰非罴。归来熨眼芙蓉国，衮衮英雄秩秩奇。</div>
+            <div class="content">夜雪赓扬草上飞，神乡梦里耸依稀。</div>
+            <div class="content">堪期汗册厥中秉，欲溯江天郁滃吹。</div>
+            <div class="content">短树终须伏豪雨，田闾长不仰非罴。</div>
+            <div class="content">归来熨眼芙蓉国，衮衮英雄秩秩奇。</div>
         </details>
 
         <details>
             <summary>竿塘其一</summary>
-            <div class="content">分江数里收暄雾，浶浪声中望不禁。晚挂高风团柘举，空摩冷水浅崖阴。万年岖屿涤东海，一阵偏滩违候禽。近港依迟斑驳岸，枕戈何事到于今。</div>
+            <div class="content">分江数里收暄雾，浶浪声中望不禁。</div>
+            <div class="content">晚挂高风团柘举，空摩冷水浅崖阴。</div>
+            <div class="content">万年岖屿涤东海，一阵偏滩违候禽。</div>
+            <div class="content">近港依迟斑驳岸，枕戈何事到于今。</div>
         </details>
 
         <details>
             <summary>竿塘其二</summary>
-            <div class="content">偃树低旗排屋杂，险坡叠径自嵯岈。芹村遗刻蒙灰藓，山陇寒蔬委塉砂。月下已疏遥碧汉，风间仍是旧星华。原知待旦堪红遍，忍为蚜虫守及瓜。</div>
+            <div class="content">偃树低旗排屋杂，险坡叠径自嵯岈。</div>
+            <div class="content">蒙灰遗刻芹村藓，多塉寒蔬介寿砂。</div>
+            <div class="content">月下已疏遥碧汉，风间仍是旧星华。</div>
+            <div class="content">原知待旦堪红遍，忍为蚜虫守及瓜。</div>
         </details>
 
         <details>
             <summary>大寒</summary>
-            <div class="content">寂寞马啣山独峙，曾经榆树兼荒垒。霜清岁晚兰州河，一掬还疑东海水。</div>
+            <div class="content">寂寞马啣山独峙，曾经榆树兼荒垒。</div>
+            <div class="content">霜清岁晚兰州河，一掬还疑瀛海水。</div>
         </details>
 
         <details>
             <summary>春风</summary>
-            <div class="content">渐晚章台春凤暖，乍寒天气彩云多。帝丘最是知心事，臧否皇恩有别科。</div>
+            <div class="content">渐晚章台春凤暖，乍寒天气彩云多。</div>
+            <div class="content">帝丘最是知心事，臧否皇恩有别科。</div>
         </details>
 
         <details>
             <summary>惊蛰</summary>
-            <div class="content">细雨黄沙相乱织，郢中不似彀中直。何人梦里却邀看，应是天津桥上识。</div>
+            <div class="content">细雨黄沙相乱织，郢中不似彀中直。</div>
+            <div class="content">何人梦里却邀看，应是天津桥上识。</div>
         </details>
 
         <details>
             <summary>定西</summary>
-            <div class="content">溶光煖气苑川阳
-				曳木暄风定相陌
-				野杏星点落埆山
-				山壁斜削如草册
-				道有遗垣村外眠
-				闻说已过称钩驿</div>
+            <div class="content">溶光煖气苑川阳，曳木暄风定相陌。</div>
+            <div class="content">野杏星点落埆山，山壁斜削如草册。</div>
+            <div class="content">道有遗垣村外眠，闻说已过称钩驿。</div>
         </details>
 
         <details>
             <summary>丙午自寿</summary>
-            <div class="content">碧土风灯黄河月
-北道珠霜素练裙
-峪下蜚蓬赭幕底
-绵羊不刍隼干云
-振叶飘扑疑新沍
-雪涧暝茫失已跗
-东壑北漠西阆颠
-上穷下泉来何路
-观洧有幸萌颍邑
-恋酒微年等狄希
-海镇仙人画虎𡳞
-津口河伯吹牛屄</div>
+            <div class="content">碧土风灯黄河月，北道珠霜素练裙。</div>
+            <div class="content">峪下蜚蓬赭幕底，绵羊不刍隼干云。</div>
+            <div class="content">振叶飘扑疑新沍，雪涧暝茫失已跗。</div>
+            <div class="content">东壑北漠西阆颠，上穷下泉来何路。</div>
+            <div class="content">观洧有幸萌颍邑，恋酒微年等狄希。</div>
+            <div class="content">海镇仙人画虎𡳞，津口河伯吹牛屄。</div>
         </details>
 
         <details>
             <summary>渔家傲·记梦</summary>
-            <div class="content">夤夜出篱迎朝未 冥知许有谢娘竢 月下穿山犹在洧 鸣鸾佩 袷裙恣动连香袂
-颖识洵殊文阃斐 揄毫衽里猫猫睡 一觉徂时秦箫泪 终不浼 从兹枉了人间对</div>
+            <div class="content">夤夜出篱迎朝未 冥知许有谢娘竢 月下穿山犹在洧 鸣鸾佩 袷裙恣动连香袂</div>
+            <div class="content">颖识洵殊文阃斐 揄毫衽里猫猫睡 一觉徂时秦箫泪 终不浼 从兹枉了人间对</div>
         </details>
 
         <details>
             <summary>临江仙·孟夏</summary>
-            <div class="content">湖面攸溶新雨汽 路陲番檨黄青 北峰山下有时晴 年年水榭 风碎故榕庭
-城门陌上人如织 闽江波向豗潆 徂光五里柳杨亭 中洲誇日 举目见昤昤</div>
+            <div class="content">湖面攸溶新雨汽 路陲番檨黄青 北峰山下有时晴 年年水榭 风碎故榕庭</div>
+            <div class="content">城门陌上人如织 闽江波向豗潆 徂光五里柳杨亭 中洲誇日 举目见昤昤</div>
         </details>
 
     </div>
