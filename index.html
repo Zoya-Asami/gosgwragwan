@@ -90,6 +90,25 @@
         0 0 8px rgba(96, 14, 14, 0.36),
         0 0 16px rgba(27, 131, 110, 0.57);
 		}
+	.selection-effect {
+    position: relative;
+    font-size: 1.04em;
+    animation: selection-wiggle 0.22s steps(2, end) infinite;
+}
+
+@keyframes selection-wiggle {
+    0%   { left: 0;     top: 0; }
+    25%  { left: 0.25px; top: -0.15px; }
+    50%  { left: -0.2px; top: 0.15px; }
+    75%  { left: 0.15px; top: 0.1px; }
+    100% { left: 0;     top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .selection-effect {
+        animation: none;
+    }
+}
     </style>
 </head>
 <body>
@@ -399,5 +418,47 @@
         </details>
 
     </div>
+<script>
+(() => {
+    function clearEffect() {
+        document.querySelectorAll('.selection-effect').forEach(el => {
+            el.replaceWith(...el.childNodes);
+        });
+    }
+
+    function applyEffect() {
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed ||
+            selection.rangeCount === 0) return;
+
+        const range = selection.getRangeAt(0);
+        const start = range.startContainer.parentElement;
+        const end = range.endContainer.parentElement;
+
+        const a = start?.closest('.content');
+        const b = end?.closest('.content');
+
+        // 只处理同一段诗文内的选区
+        if (!a || a !== b || a.querySelector('.selection-effect')) return;
+
+        try {
+            const span = document.createElement('span');
+            span.className = 'selection-effect';
+            range.surroundContents(span);
+
+            selection.removeAllRanges();
+            const newRange = document.createRange();
+            newRange.selectNodeContents(span);
+            selection.addRange(newRange);
+        } catch (_) {
+            // 复杂选区不强行处理，保留浏览器默认行为
+        }
+    }
+
+    document.addEventListener('pointerdown', clearEffect);
+    document.addEventListener('mouseup', applyEffect);
+    document.addEventListener('keyup', applyEffect);
+})();
+</script>
 </body>
 </html>
