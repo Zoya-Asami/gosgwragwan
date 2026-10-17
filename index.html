@@ -106,7 +106,6 @@
                 0 0 16px rgba(27, 131, 110, 0.57);
         }
 
-        /* 选中文字的视觉层 */
         .selection-visual-layer {
             position: fixed;
             inset: 0;
@@ -139,6 +138,74 @@
                 transform: scale(1.04);
             }
         }
+
+        .subtitle #search-toggle {
+            appearance: none;
+            -webkit-appearance: none;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            line-height: inherit;
+            cursor: pointer;
+            margin-bottom: 0rem;
+            letter-spacing: 2px;
+            color: hsl(224, 100%, 92%)
+        }
+
+        .subtitle #search-toggle:focus-visible {
+            outline: 1px dashed currentColor;
+            outline-offset: 3px;
+        }
+
+        #search-panel {
+            margin: 0.8em auto 1.2em;
+            max-width: 36em;
+            text-align: center;
+        }
+
+        #search-panel[hidden] {
+            display: none;
+        }
+
+        #poem-search {
+            box-sizing: border-box;
+            width: min(100%, 28em);
+            padding: 0.55em 0.8em;
+            border: 1px solid currentColor;
+            border-radius: 4px;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+        }
+
+        #search-clear {
+            margin-left: 0.4em;
+            padding: 0.5em 0.7em;
+            border: 1px solid currentColor;
+            border-radius: 4px;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        #search-results {
+            margin-top: 0.8em;
+            text-align: left;
+        }
+
+        .search-result {
+            margin: 0.6em 0;
+            padding: 0.6em;
+            border-bottom: 1px solid currentColor;
+        }
+
+        .search-result a {
+            color: inherit;
+        }
     </style>
 </head>
 
@@ -147,8 +214,17 @@
         <h1>後華園</h1>
 
         <h3>且往观乎！洵訏且乐。</h3>
-        <h3>且往观乎！用竢后华。</h3>
+        <h3 class="subtitle">
+            <button id="search-toggle" type="button" aria-expanded="false">
+                且往观乎！
+            </button>用竢后华。
+        </h3>
 
+        <div id="search-panel" hidden>
+            <input id="poem-search" type="search" placeholder="检索……" aria-label="检索">
+            <button id="search-clear" type="button">清除</button>
+            <div id="search-results" aria-live="polite"></div>
+        </div>
         <details>
             <summary>王孙</summary>
             <div class="content">蔽芾咸阳道，飘葱过暮春。</div>
@@ -409,7 +485,7 @@
 
         <details>
             <summary>春风</summary>
-            <div class="content">渐晚章台春凤暖，乍寒天气彩云多。</div>
+            <div class="content">渐晚章台春凤妩，乍寒天气彩云多。</div>
             <div class="content">帝丘最是知心事，臧否皇恩有别科。</div>
         </details>
 
@@ -421,7 +497,7 @@
 
         <details>
             <summary>定西</summary>
-            <div class="content">溶光煖气苑川阳，曳木暄风定相陌。</div>
+            <div class="content">溶光煖气关川阳，曳木暄风定相陌。</div>
             <div class="content">野杏星点落埆山，山壁斜削如草册。</div>
             <div class="content">道有遗垣村外眠，闻说已过称钩驿。</div>
         </details>
@@ -473,7 +549,6 @@
 
                 const range = selection.getRangeAt(0);
 
-                // 不处理脚本、样式、输入框等特殊区域
                 const startNode = range.startContainer;
                 const endNode = range.endContainer;
 
@@ -538,7 +613,6 @@
 
                     const segment = text.slice(start, end);
 
-                    // 逐个字素定位，兼顾中文及组合字符
                     const chars = [...segment];
                     let offset = start;
 
@@ -584,7 +658,6 @@
                 updateTimer = setTimeout(updateSelection, 80);
             });
 
-            // 滚动后重算位置
             window.addEventListener('scroll', () => {
                 if (layer) updateSelection();
             }, {passive: true});
@@ -593,11 +666,96 @@
                 if (layer) updateSelection();
             }, {passive: true});
 
-            // 点击空白处时清除效果
             document.addEventListener('pointerdown', event => {
                 if (!event.target.closest('.selection-visual-layer')) {
                     clearLayer();
                 }
+            });
+        })();
+    </script>
+    <script>
+        (() => {
+            const toggle = document.getElementById('search-toggle');
+            const panel = document.getElementById('search-panel');
+            const input = document.getElementById('poem-search');
+            const clear = document.getElementById('search-clear');
+            const results = document.getElementById('search-results');
+
+            if (!toggle || !panel || !input || !clear || !results) return;
+
+            const entries = [...document.querySelectorAll('details')].map((item, i) => {
+                if (!item.id) item.id = 'poem-entry-' + (i + 1);
+
+                const title = item.querySelector('summary')?.textContent.trim() || '未命名诗文';
+
+                const clone = item.cloneNode(true);
+                clone.querySelector('summary')?.remove();
+                const content = clone.textContent.replace(/\s+/g, ' ').trim();
+
+                return {item, title, content};
+            });
+
+            toggle.addEventListener('click', () => {
+                const opening = panel.hidden;
+                panel.hidden = !opening;
+                toggle.setAttribute('aria-expanded', String(opening));
+
+                if (opening) input.focus();
+                else results.replaceChildren();
+            });
+
+            function search() {
+                const query = input.value.trim().toLocaleLowerCase();
+                results.replaceChildren();
+
+                if (!query) return;
+
+                const matched = entries.filter(entry =>
+                    (entry.title + '\n' + entry.content)
+                        .toLocaleLowerCase()
+                        .includes(query)
+                );
+
+                if (!matched.length) {
+                    results.textContent = '没有找到相关诗文。';
+                    return;
+                }
+
+                const summary = document.createElement('p');
+                summary.textContent = `找到 ${matched.length} 篇相关诗文：`;
+                results.appendChild(summary);
+
+                matched.forEach(entry => {
+                    const row = document.createElement('div');
+                    row.className = 'search-result';
+
+                    const link = document.createElement('a');
+                    link.href = '#' + entry.item.id;
+                    link.textContent = entry.title;
+
+                    link.addEventListener('click', () => {
+                        entry.item.open = true;
+                    });
+
+                    row.appendChild(link);
+
+                    const snippet = document.createElement('p');
+                    const pos = entry.content.toLocaleLowerCase()
+                        .indexOf(query);
+                    const start = Math.max(0, pos - 25);
+                    snippet.textContent = entry.content.slice(start, start + 100);
+                    row.appendChild(snippet);
+
+                    results.appendChild(row);
+                });
+            }
+
+            input.addEventListener('input', search);
+
+            clear.addEventListener('click', () => {
+                input.value = '';
+                results.replaceChildren();
+                input.focus();
             });
         })();
     </script>
