@@ -106,42 +106,37 @@
                 0 0 16px rgba(27, 131, 110, 0.57);
         }
 
-        .selection-effect {
-            position: relative;
-            font-size: 1.04em;
-            animation: selection-wiggle 0.22s steps(2, end) infinite;
+        /* 选中文字的视觉层 */
+        .selection-visual-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .selection-visual-char {
+            position: fixed;
+            display: block;
+            white-space: pre;
+            transform-origin: center center;
+            animation: selection-wiggle 0.05s ease-in-out infinite alternate;
         }
 
         @keyframes selection-wiggle {
-            0% {
-                left: 0;
-                top: 0;
+            from {
+                transform: scale(1.04) translate(-0.15px, 0.2px);
             }
 
-            25% {
-                left: 0.25px;
-                top: -0.15px;
-            }
-
-            50% {
-                left: -0.2px;
-                top: 0.15px;
-            }
-
-            75% {
-                left: 0.15px;
-                top: 0.1px;
-            }
-
-            100% {
-                left: 0;
-                top: 0;
+            to {
+                transform: scale(1.04) translate(0.15px, -0.2px);
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .selection-effect {
+            .selection-visual-char {
                 animation: none;
+                transform: scale(1.04);
             }
         }
     </style>
@@ -456,43 +451,154 @@
     </div>
     <script>
         (() => {
-            function clearEffect() {
-                document.querySelectorAll('.selection-effect').forEach(el => {
-                    el.replaceWith(...el.childNodes);
-                });
-            }
+            let layer = null;
+            let updateTimer = null;
 
-            function applyEffect() {
-                const selection = window.getSelection();
-                if (!selection || selection.isCollapsed ||
-                    selection.rangeCount === 0) return;
-
-                const range = selection.getRangeAt(0);
-                const start = range.startContainer.parentElement;
-                const end = range.endContainer.parentElement;
-
-                const a = start?.closest('.content');
-                const b = end?.closest('.content');
-
-
-                if (!a || a !== b || a.querySelector('.selection-effect')) return;
-
-                try {
-                    const span = document.createElement('span');
-                    span.className = 'selection-effect';
-                    range.surroundContents(span);
-
-                    selection.removeAllRanges();
-                    const newRange = document.createRange();
-                    newRange.selectNodeContents(span);
-                    selection.addRange(newRange);
-                } catch (_) {
+            function clearLayer() {
+                if (layer) {
+                    layer.remove();
+                    layer = null;
                 }
             }
 
-            document.addEventListener('pointerdown', clearEffect);
-            document.addEventListener('mouseup', applyEffect);
-            document.addEventListener('keyup', applyEffect);
+            function updateSelection() {
+                clearLayer();
+
+                const selection = window.getSelection();
+
+                if (!selection || selection.isCollapsed ||
+                    !selection.rangeCount) {
+                    return;
+                }
+
+                const range = selection.getRangeAt(0);
+
+                // 不处理脚本、样式、输入框等特殊区域
+                const startNode = range.startContainer;
+                const endNode = range.endContainer;
+
+                if (!startNode.isConnected || !endNode.isConnected) return;
+
+                const forbidden = 'script, style, textarea, input, select, button';
+
+                if (
+                    (startNode.parentElement &&
+                        startNode.parentElement.closest(forbidden)) ||
+                    (endNode.parentElement &&
+                        endNode.parentElement.closest(forbidden))
+                ) return;
+
+                layer = document.createElement('div');
+                layer.className = 'selection-visual-layer';
+                layer.setAttribute('aria-hidden', 'true');
+
+                const walker = document.createTreeWalker(
+                    range.commonAncestorContainer.nodeType === 1
+                        ? range.commonAncestorContainer
+                        : range.commonAncestorContainer.parentNode,
+                    NodeFilter.SHOW_TEXT
+                );
+
+                const nodes = [];
+                let node;
+
+                while ((node = walker.nextNode())) {
+                    if (!node.isConnected || !node.nodeValue) continue;
+
+                    const nodeRange = document.createRange();
+                    nodeRange.selectNodeContents(node);
+
+                    if (range.compareBoundaryPoints(
+                        Range.END_TO_START, nodeRange
+                    ) >= 0) continue;
+
+                    if (range.compareBoundaryPoints(
+                        Range.START_TO_END, nodeRange
+                    ) <= 0) continue;
+
+                    nodes.push(node);
+                }
+
+                let count = 0;
+
+                for (const textNode of nodes) {
+                    const text = textNode.nodeValue;
+                    const style = getComputedStyle(textNode.parentElement);
+
+                    let start = 0;
+                    let end = text.length;
+
+                    if (textNode === range.startContainer) {
+                        start = range.startOffset;
+                    }
+
+                    if (textNode === range.endContainer) {
+                        end = range.endOffset;
+                    }
+
+                    const segment = text.slice(start, end);
+
+                    // 逐个字素定位，兼顾中文及组合字符
+                    const chars = [...segment];
+                    let offset = start;
+
+                    for (const char of chars) {
+                        const charRange = document.createRange();
+                        charRange.setStart(textNode, offset);
+                        offset += char.length;
+                        charRange.setEnd(textNode, offset);
+
+                        const rect = charRange.getBoundingClientRect();
+
+                        if (!rect.width && !rect.height) continue;
+
+                        const span = document.createElement('span');
+                        span.className = 'selection-visual-char';
+                        span.textContent = char;
+
+                        span.style.left = rect.left + 'px';
+                        span.style.top = (rect.top - 4) + 'px';
+                        span.style.width = rect.width + 'px';
+                        span.style.height = rect.height + 'px';
+                        span.style.font = style.font;
+                        span.style.color = style.color;
+                        span.style.lineHeight = style.lineHeight;
+
+                        layer.appendChild(span);
+
+                        if (++count >= 1000) break;
+                    }
+
+                    if (count >= 1000) break;
+                }
+
+                if (layer.childNodes.length) {
+                    document.body.appendChild(layer);
+                } else {
+                    clearLayer();
+                }
+            }
+
+            document.addEventListener('selectionchange', () => {
+                clearTimeout(updateTimer);
+                updateTimer = setTimeout(updateSelection, 80);
+            });
+
+            // 滚动后重算位置
+            window.addEventListener('scroll', () => {
+                if (layer) updateSelection();
+            }, {passive: true});
+
+            window.addEventListener('resize', () => {
+                if (layer) updateSelection();
+            }, {passive: true});
+
+            // 点击空白处时清除效果
+            document.addEventListener('pointerdown', event => {
+                if (!event.target.closest('.selection-visual-layer')) {
+                    clearLayer();
+                }
+            });
         })();
     </script>
 </body>
