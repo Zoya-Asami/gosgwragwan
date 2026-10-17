@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
             --border-color: #2a2a2a;
             --hover-bg: #794e4eff;
         }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -22,10 +24,12 @@
             display: flex;
             justify-content: center;
         }
+
         .container {
             max-width: 700px;
             width: 100%;
         }
+
         h1 {
             text-align: center;
             color: var(--title-color);
@@ -33,6 +37,7 @@
             margin-bottom: 2rem;
             letter-spacing: 7px;
         }
+
         h3 {
             text-align: center;
             color: var(--title-color);
@@ -41,10 +46,12 @@
             letter-spacing: 2px;
             line-height: 1;
         }
+
         details {
             border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
         }
+
         summary {
             font-size: 1.15rem;
             color: var(--title-color);
@@ -53,12 +60,15 @@
             outline: none;
             transition: color 0.3s ease;
         }
+
         summary::-webkit-details-marker {
             display: none;
         }
+
         summary:hover {
             color: #888888;
         }
+
         .content {
             margin-top: 1.5rem;
             padding: 1.5rem;
@@ -68,49 +78,75 @@
             font-size: 1.05rem;
             color: #ffffffff;
         }
-        .content + .content {
+
+        .content+.content {
             margin-top: 0;
             padding-top: 0;
             border-radius: 0;
         }
-        details > div.content:first-of-type {
+
+        details>div.content:first-of-type {
             border-radius: 6px 6px 0 0;
         }
-        details > div.content:last-of-type {
+
+        details>div.content:last-of-type {
             border-radius: 0 0 6px 6px;
         }
-        details > div.content:only-of-type {
+
+        details>div.content:only-of-type {
             border-radius: 6px;
         }
-		::selection {
-    background-color: #f0eaffff; 
-    color: #121212;        
-    text-shadow: 
-        0 0 4px rgba(102, 0, 0, 0.73),
-        0 0 8px rgba(96, 14, 14, 0.36),
-        0 0 16px rgba(27, 131, 110, 0.57);
-		}
-	.selection-effect {
-    position: relative;
-    font-size: 1.04em;
-    animation: selection-wiggle 0.22s steps(2, end) infinite;
-}
 
-@keyframes selection-wiggle {
-    0%   { left: 0;     top: 0; }
-    25%  { left: 0.25px; top: -0.15px; }
-    50%  { left: -0.2px; top: 0.15px; }
-    75%  { left: 0.15px; top: 0.1px; }
-    100% { left: 0;     top: 0; }
-}
+        ::selection {
+            background-color: #f0eaffff;
+            color: #121212;
+            text-shadow:
+                0 0 4px rgba(102, 0, 0, 0.73),
+                0 0 8px rgba(96, 14, 14, 0.36),
+                0 0 16px rgba(27, 131, 110, 0.57);
+        }
 
-@media (prefers-reduced-motion: reduce) {
-    .selection-effect {
-        animation: none;
-    }
-}
+        .selection-effect {
+            position: relative;
+            font-size: 1.04em;
+            animation: selection-wiggle 0.22s steps(2, end) infinite;
+        }
+
+        @keyframes selection-wiggle {
+            0% {
+                left: 0;
+                top: 0;
+            }
+
+            25% {
+                left: 0.25px;
+                top: -0.15px;
+            }
+
+            50% {
+                left: -0.2px;
+                top: 0.15px;
+            }
+
+            75% {
+                left: 0.15px;
+                top: 0.1px;
+            }
+
+            100% {
+                left: 0;
+                top: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .selection-effect {
+                animation: none;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>後華園</h1>
@@ -418,47 +454,47 @@
         </details>
 
     </div>
-<script>
-(() => {
-    function clearEffect() {
-        document.querySelectorAll('.selection-effect').forEach(el => {
-            el.replaceWith(...el.childNodes);
-        });
-    }
+    <script>
+        (() => {
+            function clearEffect() {
+                document.querySelectorAll('.selection-effect').forEach(el => {
+                    el.replaceWith(...el.childNodes);
+                });
+            }
 
-    function applyEffect() {
-        const selection = window.getSelection();
-        if (!selection || selection.isCollapsed ||
-            selection.rangeCount === 0) return;
+            function applyEffect() {
+                const selection = window.getSelection();
+                if (!selection || selection.isCollapsed ||
+                    selection.rangeCount === 0) return;
 
-        const range = selection.getRangeAt(0);
-        const start = range.startContainer.parentElement;
-        const end = range.endContainer.parentElement;
+                const range = selection.getRangeAt(0);
+                const start = range.startContainer.parentElement;
+                const end = range.endContainer.parentElement;
 
-        const a = start?.closest('.content');
-        const b = end?.closest('.content');
+                const a = start?.closest('.content');
+                const b = end?.closest('.content');
 
-        // 只处理同一段诗文内的选区
-        if (!a || a !== b || a.querySelector('.selection-effect')) return;
 
-        try {
-            const span = document.createElement('span');
-            span.className = 'selection-effect';
-            range.surroundContents(span);
+                if (!a || a !== b || a.querySelector('.selection-effect')) return;
 
-            selection.removeAllRanges();
-            const newRange = document.createRange();
-            newRange.selectNodeContents(span);
-            selection.addRange(newRange);
-        } catch (_) {
-            // 复杂选区不强行处理，保留浏览器默认行为
-        }
-    }
+                try {
+                    const span = document.createElement('span');
+                    span.className = 'selection-effect';
+                    range.surroundContents(span);
 
-    document.addEventListener('pointerdown', clearEffect);
-    document.addEventListener('mouseup', applyEffect);
-    document.addEventListener('keyup', applyEffect);
-})();
-</script>
+                    selection.removeAllRanges();
+                    const newRange = document.createRange();
+                    newRange.selectNodeContents(span);
+                    selection.addRange(newRange);
+                } catch (_) {
+                }
+            }
+
+            document.addEventListener('pointerdown', clearEffect);
+            document.addEventListener('mouseup', applyEffect);
+            document.addEventListener('keyup', applyEffect);
+        })();
+    </script>
 </body>
+
 </html>
